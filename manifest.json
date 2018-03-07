@@ -1,0 +1,6 @@
+{
+  "name": "wispix",
+  "short_name": "wispix",
+  "start_url": "/",
+  "display": "standalone"
+}

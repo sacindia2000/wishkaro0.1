@@ -1,0 +1,142 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-scroll-threshold/iron-scroll-threshold.html">
+
+
+<dom-module id="wispix-app">
+  <template>
+    <custom-style>
+    <style is="custom-style"  include="iron-flex iron-flex-alignment">
+      :host {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;  
+        --app-primary-color: #4285f4;
+        --app-secondary-color: black;    }
+     
+      app-header {
+      @apply --layout-fixed-top;
+      z-index: 1;
+      color: rgb(236, 31, 31);
+      --app-header-background-rear-layer: {
+        background-color: #70cae6;
+      };
+    }
+    app-toolbar {
+      background-color: #4285f4;
+      color: #fff;
+    }
+    paper-tabs {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    width: 100%;
+    text-transform: uppercase;
+    margin-bottom: 1px;
+    --paper-tabs-selection-bar-color: rgb(68, 16, 253);
+    z-index: 1;
+
+  }
+    iron-list {
+      flex: 1 1 auto;
+      padding-top: 80px;
+
+    }
+    .container {
+         @apply --layout-horizontal;
+         margin-right: 2px;
+         margin-left: 2px;
+         margin-top: 2px;
+         margin-bottom: 2px;
+  }
+    </style>
+    </custom-style>
+    <app-header slot="header" reveals effects="waterfall">
+     <app-toolbar>
+     <div main-title>Ottomate</div>
+     </app-toolbar>
+     <paper-tabs selected="0" >
+        <paper-tab>FANS</paper-tab>
+        <paper-tab>LIGHTS</paper-tab>
+     </paper-tabs>
+    </app-header>
+  
+    <div class="fit container">
+    <iron-list items="[[contactsarray]]" as="item" id = "itemlist" scroll-target= "document" grid >
+        <template>
+          <div>
+          <iron-image style=[[imagestyle]] sizing="cover" 
+          src=[[item]]></iron-image>
+         </div>
+        </template>
+      </iron-list>
+    </div> 
+    <iron-scroll-threshold id="scrollThreshold"
+    scroll-target="document"
+    lower-threshold="500"
+    lower-triggered="{{lowerTriggered}}"
+    on-lower-threshold="loadMoreData">
+  </iron-scroll-threshold>     
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class WispixApp extends Polymer.Element {
+      static get is() { return 'wispix-app'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'wispix-app'
+          },
+          contactsarray: {
+            type: Array
+          },
+          imagestyle:
+          {
+            type: String,
+            value: "width:300px; height:100px;"
+          },
+          scrollTarget: HTMLElement
+
+        };
+      }
+      ready()
+      {
+        super.ready();
+        console.log("I am ready");
+        this.contactsarray = [];
+
+/*
+          setInterval(() => {
+         console.log("Adding Data");       
+         this.push('contactsarray',"../images/fan1.jpg");
+        Polymer.flush();
+      }, 1000);  */
+      }
+      loadMoreData( )
+      {
+        console.log("Loading is called");
+        this.push('contactsarray',"../images/fan1.jpg");
+        this.push('contactsarray',"../images/fan1.jpg");
+        this.push('contactsarray',"../images/fan1.jpg");
+        this.push('contactsarray',"../images/fan1.jpg");
+        this.$.scrollThreshold.clearTriggers();
+        
+      }
+    }
+
+    window.customElements.define(WispixApp.is, WispixApp);
+  </script>
+</dom-module>
