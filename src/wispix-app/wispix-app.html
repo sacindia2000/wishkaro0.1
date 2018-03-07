@@ -19,6 +19,7 @@
       :host {
         height: 100vh;
         display: flex;
+        background-size: cover;
         flex-direction: column;  
         --app-primary-color: #4285f4;
         --app-secondary-color: black;    }
@@ -124,14 +125,15 @@
          this.push('contactsarray',"../images/fan1.jpg");
         Polymer.flush();
       }, 1000);  */
+
       }
       loadMoreData( )
       {
         console.log("Loading is called");
-        this.push('contactsarray',"../images/fan1.jpg");
-        this.push('contactsarray',"../images/fan1.jpg");
-        this.push('contactsarray',"../images/fan1.jpg");
-        this.push('contactsarray',"../images/fan1.jpg");
+        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan1.jpg?alt=media&token=4523d564-1263-4daa-ac23-5127d87dcfb6");
+        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan1.jpg?alt=media&token=4523d564-1263-4daa-ac23-5127d87dcfb6");
+        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan1.jpg?alt=media&token=4523d564-1263-4daa-ac23-5127d87dcfb6");
+        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan1.jpg?alt=media&token=4523d564-1263-4daa-ac23-5127d87dcfb6");
         this.$.scrollThreshold.clearTriggers();
         
       }
