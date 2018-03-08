@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
 <link rel="import" href="../../bower_components/iron-list/iron-list.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
@@ -18,6 +19,7 @@
     <style is="custom-style"  include="iron-flex iron-flex-alignment">
       :host {
         height: 100vh;
+        margin: 0;
         display: flex;
         background-size: cover;
         flex-direction: column;  
@@ -27,65 +29,76 @@
       app-header {
       @apply --layout-fixed-top;
       z-index: 1;
-      color: rgb(236, 31, 31);
-      --app-header-background-rear-layer: {
-        background-color: #70cae6;
-      };
-    }
-    app-toolbar {
-      background-color: #4285f4;
       color: #fff;
+      background-color: var(--app-primary-color);
     }
-    paper-tabs {
-    font-family: 'Roboto', 'Noto', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    width: 100%;
-    text-transform: uppercase;
-    margin-bottom: 1px;
-    --paper-tabs-selection-bar-color: rgb(68, 16, 253);
-    z-index: 1;
-
-  }
+    
     iron-list {
       flex: 1 1 auto;
-      padding-top: 80px;
+      padding-top: 4px;
 
     }
     .container {
-         @apply --layout-horizontal;
+      @apply --layout-horizontal;
+      @apply --layout-wrap;
+      margin-right: 2px;
+      margin-left: 2px;
+      margin-top: 2px;
+      margin-bottom: 2px;
+}
+.flexchild {
+ @apply --layout-flex;
+ @apply --layout-horizontal;
+ @apply --layout-wrap;
+ margin-right: 2px;
+ margin-left: 2px;
+}
+.imagecontainer
+{
+ margin-top:2px;
+ margin-bottom:2px
+}
+  .imgcard
+  {
          margin-right: 2px;
          margin-left: 2px;
          margin-top: 2px;
          margin-bottom: 2px;
   }
+  
     </style>
     </custom-style>
+    <app-header-layout fullbleed>
     <app-header slot="header" reveals effects="waterfall">
-     <app-toolbar>
-     <div main-title>Ottomate</div>
+     <app-toolbar style= "text-align: center;
+     vertical-align: middle;">
+     <div main-title>OTTOMATE</div>
      </app-toolbar>
      <paper-tabs selected="0" >
         <paper-tab>FANS</paper-tab>
         <paper-tab>LIGHTS</paper-tab>
      </paper-tabs>
     </app-header>
-  
-    <div class="fit container">
-    <iron-list items="[[contactsarray]]" as="item" id = "itemlist" scroll-target= "document" grid >
+     
+  <div class = "container">
+    <iron-list items="[[contactsarray]]" as="item" id = "itemlist" scroll-target= "document" grid>
         <template>
-          <div>
-          <iron-image style=[[imagestyle]] sizing="cover" 
+          <div class = "flexchild"style="width:50%">
+          <iron-image class = "imagecontainer" sizing = "cover" style = "width:calc(100% - 4px); height:180px;"
           src=[[item]]></iron-image>
          </div>
         </template>
       </iron-list>
-    </div> 
+  </div>
+
     <iron-scroll-threshold id="scrollThreshold"
     scroll-target="document"
     lower-threshold="500"
     lower-triggered="{{lowerTriggered}}"
     on-lower-threshold="loadMoreData">
-  </iron-scroll-threshold>     
+  </iron-scroll-threshold>    
+</app-header-layout>
+
   </template>
 
   <script>
@@ -107,7 +120,7 @@
           imagestyle:
           {
             type: String,
-            value: "width:300px; height:100px;"
+            value: "width:174; height:180px;"
           },
           scrollTarget: HTMLElement
 
@@ -130,10 +143,10 @@
       loadMoreData( )
       {
         console.log("Loading is called");
-        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan1.jpg?alt=media&token=4523d564-1263-4daa-ac23-5127d87dcfb6");
-        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan1.jpg?alt=media&token=4523d564-1263-4daa-ac23-5127d87dcfb6");
-        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan1.jpg?alt=media&token=4523d564-1263-4daa-ac23-5127d87dcfb6");
-        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan1.jpg?alt=media&token=4523d564-1263-4daa-ac23-5127d87dcfb6");
+        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan2.jpg?alt=media&token=eff166fb-4cf0-482d-bb5e-c2460bff7c4e");
+        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan3.jpg?alt=media&token=cb904eda-0edd-4c13-b8fd-8885287a4c30");
+        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan2.jpg?alt=media&token=eff166fb-4cf0-482d-bb5e-c2460bff7c4e");
+        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan10.jpg?alt=media&token=b105ff43-3865-411d-a6d4-742187b8517f");
         this.$.scrollThreshold.clearTriggers();
         
       }
