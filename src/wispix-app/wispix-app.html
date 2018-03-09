@@ -12,6 +12,12 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/iron-scroll-threshold/iron-scroll-threshold.html">
 
+<!-- Fire base files -->
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase-firestore.js"></script>
+<script src="my-firebase.js"></script>
+
 
 <dom-module id="wispix-app">
   <template>
@@ -23,7 +29,7 @@
         display: flex;
         background-size: cover;
         flex-direction: column;  
-        --app-primary-color: #4285f4;
+        --app-primary-color: #5031AA;
         --app-secondary-color: black;    }
      
       app-header {
@@ -69,10 +75,10 @@
     </style>
     </custom-style>
     <app-header-layout fullbleed>
-    <app-header slot="header" reveals effects="waterfall">
+    <app-header slot="header">
      <app-toolbar style= "text-align: center;
      vertical-align: middle;">
-     <div main-title>OTTOMATE</div>
+     <div main-title style = "padding-top:40px;">WishKaro</div>
      </app-toolbar>
      <paper-tabs selected="0" >
         <paper-tab>FANS</paper-tab>
@@ -85,7 +91,7 @@
         <template>
           <div class = "flexchild"style="width:50%">
           <iron-image class = "imagecontainer" sizing = "cover" style = "width:calc(100% - 4px); height:180px;"
-          src=[[item]]></iron-image>
+          src=[[item.linkwebp]]></iron-image>
          </div>
         </template>
       </iron-list>
@@ -102,6 +108,9 @@
   </template>
 
   <script>
+    var collectionname = "wishimages";
+    var datasize = 6;
+    var dataarray = [];
     /**
      * @customElement
      * @polymer
@@ -129,25 +138,40 @@
       ready()
       {
         super.ready();
+        myfirebase_init( );
         console.log("I am ready");
         this.contactsarray = [];
+      //  myfirestore_getdata(collectionname,datasize,this.contactsarray);
+        myfirestore_getdata(collectionname,datasize,this.addUser);
 
-/*
-          setInterval(() => {
-         console.log("Adding Data");       
-         this.push('contactsarray',"../images/fan1.jpg");
-        Polymer.flush();
-      }, 1000);  */
+
+   //       setInterval(() => {
+     //    console.log("Adding Data");       
+       // this.push('contactsarray',"../images/fan1.jpg");
+     //   Polymer.flush();
+     // }, 1000);  
+      
+
 
       }
+      addUser(user)  {
+    var temp = document.querySelector("wispix-app");
+      temp.push('contactsarray',user);
+      console.log(temp.contactsarray);
+      }
+
       loadMoreData( )
       {
         console.log("Loading is called");
-        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan2.jpg?alt=media&token=eff166fb-4cf0-482d-bb5e-c2460bff7c4e");
-        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan3.jpg?alt=media&token=cb904eda-0edd-4c13-b8fd-8885287a4c30");
-        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan2.jpg?alt=media&token=eff166fb-4cf0-482d-bb5e-c2460bff7c4e");
-        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/fan10.jpg?alt=media&token=b105ff43-3865-411d-a6d4-742187b8517f");
+        /*
+        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/img-1.jpg?alt=media&token=64a6002c-0fcd-41ae-b19c-3a7403e690dd");
+        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/img-1.webp?alt=media&token=61afef39-c718-40e6-970b-3b4a88ff61e9");
+        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/img-2.jpg?alt=media&token=52abc17c-7000-4cc6-8f54-3b724d8de330");
+        this.push('contactsarray',"https://firebasestorage.googleapis.com/v0/b/wishpix-5fff8.appspot.com/o/img-2.webp?alt=media&token=67218d14-3163-4013-8b5a-83ee21b286c0");
+        */
+        myfirestore_getdata(collectionname,datasize,this.addUser);
         this.$.scrollThreshold.clearTriggers();
+
         
       }
     }

@@ -351,6 +351,10 @@
     "bower_components/iron-scroll-threshold/iron-scroll-threshold.html": {
       "type": "document",
       "weight": 1
+    },
+    "src/wispix-app/my-firebase.js": {
+      "type": "script",
+      "weight": 1
     }
   }
 }
